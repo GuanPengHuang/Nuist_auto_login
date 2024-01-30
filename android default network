@@ -1,0 +1,14 @@
+config interface 'loopback'
+        option ifname 'lo'
+        option proto 'static'
+        option ipaddr '127.0.0.1'
+        option netmask '255.0.0.0'
+
+config globals 'globals'
+        option ula_prefix 'fd19:a5ec:921e::/48'
+
+config interface 'wan'
+        option ifname 'eth0'
+        option proto 'dhcp'
+
+qemu-system-aarch64 -M virt -m 1024m -kernel openwrt-19.07.8-armvirt-64-Image -append "root=fe00" -hda openwrt-19.07.8-armvirt-64-root.ext4 -nographic -cpu cortex-a53 -smp 4 -netdev user,id=mynet0 -device virtio-net,netdev=mynet0
